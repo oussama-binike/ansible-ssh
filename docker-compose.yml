@@ -1,0 +1,6 @@
+services:
+  web:
+    image: ousssamabinike/shopping-cart-2:latest
+    container_name: shopping-cart
+    ports:
+      - "80:8070"
