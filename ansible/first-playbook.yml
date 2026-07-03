@@ -1,0 +1,43 @@
+---
+  - name: First Playbook
+    hosts: tag_Name_node_1
+    become: yes
+    tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+        
+    - name: add user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: reset ssh connection
+      meta: reset_connection
+
+    - name: copy docker-compose.yml to remote server
+      copy:
+        src: ../docker-compose.yml
+        dest: /home/ubuntu/docker-compose.yml
+        owner: ubuntu
+        group: ubuntu
+
+    - name: run docker-compose up
+      community.docker.docker_compose_v2:
+        project_src: /home/ubuntu/
+        state: present
+    
+
+    
