@@ -14,7 +14,7 @@ pipeline {
                 sshagent(['ansible-ssh']) {
                     sh 'echo "Running commands on remote server..."'
                     sh "scp -o StrictHostKeyChecking=no  docker-compose.yml ansible/* ${ssh_user}@${ip_address}:${dist_path}"
-                    whithCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh', keyFileVariable: 'SSH_KEY')]) {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh', keyFileVariable: 'SSH_KEY')]) {
                         sh "scp  $SSH_KEY ${ssh_user}@${ip_address}:${ssh_key_path}"
                     }
                     sh "ssh ${ssh_user}@${ip_address} ${ansible_command}"
