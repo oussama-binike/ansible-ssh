@@ -17,7 +17,7 @@
       apt:
         name: docker-compose
         state: present
-        
+
     - name: add user to docker group
       user:
         name: ubuntu
@@ -29,7 +29,7 @@
 
     - name: copy docker-compose.yml to remote server
       copy:
-        src: ../docker-compose.yml
+        src: /home/ubuntu/docker-compose.yml
         dest: /home/ubuntu/docker-compose.yml
         owner: ubuntu
         group: ubuntu
