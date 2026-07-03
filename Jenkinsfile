@@ -19,8 +19,7 @@ pipeline {
                         sh "scp  $SSH_KEY ${ssh_user}@${ip_address}:${ssh_key_path}"
                     }
                     sh "ssh ${ssh_user}@${ip_address} ${ansible_command}"
-                    sh "ssh ${ssh_user}@${ip_address} ${docker_command}"
-                    sh "ssh ${ssh_user}@${ip_address} 'rm -f ${ssh_key_path}'"
+                    sh "ssh ${ssh_user}@${ip_address} 'sudo rm -f ${ssh_key_path}'"
                 }
             }
         }
